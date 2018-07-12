@@ -71,8 +71,7 @@ class SlicedGridFunction<LF, r, 1> : public XT::Functions::GridFunctionInterface
 
     void post_bind(const ElementType& element) override final
     {
-      // local_function_->post_bind(element);
-      DUNE_THROW(NotImplemented, 'Implement it');
+      local_function_->bind(element);
     }
 
     int order(const XT::Common::Parameter& = {}) const override final
@@ -96,7 +95,7 @@ class SlicedGridFunction<LF, r, 1> : public XT::Functions::GridFunctionInterface
     }
 
   private:
-    const std::unique_ptr<typename LF::LocalFunctionType> local_function_;
+    std::unique_ptr<typename LF::LocalFunctionType> local_function_;
     const std::array<size_t, r>& dims_;
   }; // class SlicedLocalFunction
 
