@@ -146,7 +146,7 @@ PYBIND11_PLUGIN(_functions)
   //  bind_FunctionInterface<1, 1, 3>(m);
   //  bind_FunctionInterface<1, 3, 3>(m);
 
-  bind_FunctionInterface<2, 1, 1>(m);
+  auto i_2_1_1 = bind_FunctionInterface<2, 1, 1>(m);
   //  bind_FunctionInterface<2, 2, 1>(m);
   //  bind_FunctionInterface<2, 3, 1>(m);
   //  bind_FunctionInterface<2, 4, 1>(m);
@@ -163,6 +163,19 @@ PYBIND11_PLUGIN(_functions)
   //  bind_FunctionInterface<3, 1, 2>(m);
   //  bind_FunctionInterface<3, 1, 3>(m);
   //  bind_FunctionInterface<3, 3, 3>(m);
+
+  const auto diff = internal::Combination::difference;
+  const auto sum = internal::Combination::sum;
+  const auto prod = internal::Combination::product;
+
+  bind_combined_Function<2, diff, 1, 1, 1, 1>(m);
+  addbind_FunctionInterface_combined_op<2, diff, 1, 1, 1, 1>(i_2_1_1);
+
+  bind_combined_Function<2, sum, 1, 1, 1, 1>(m);
+  addbind_FunctionInterface_combined_op<2, sum, 1, 1, 1, 1>(i_2_1_1);
+
+  bind_combined_Function<2, prod, 1, 1, 1, 1>(m);
+  addbind_FunctionInterface_combined_op<2, prod, 1, 1, 1, 1>(i_2_1_1);
 
   //  bind_ConstantFunction<1, 1, 1>(m);
   //  bind_ConstantFunction<1, 2, 1>(m);
@@ -231,7 +244,7 @@ PYBIND11_PLUGIN(_functions)
   //  bind_ExpressionFunction<3, 3, 3>(m);
 
   //  addbind_for_Grid<Dune::YaspGrid<1, Dune::EquidistantOffsetCoordinates<double, 1>>>(m);
-  addbind_for_Grid<Dune::YaspGrid<2, Dune::EquidistantOffsetCoordinates<double, 2>>>(m);
+  //  addbind_for_Grid<Dune::YaspGrid<2, Dune::EquidistantOffsetCoordinates<double, 2>>>(m);
   //#if HAVE_DUNE_ALUGRID
   //  addbind_for_Grid<Dune::ALUGrid<2, 2, Dune::simplex, Dune::conforming>>(m);
   //#endif
